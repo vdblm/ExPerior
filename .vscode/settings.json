@@ -1,0 +1,36 @@
+{
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "python.languageServer": "Pylance",
+    "files.trimTrailingWhitespace": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "[python]": {
+        "editor.rulers": [
+            80
+        ],
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.detectIndentation": false,
+        "editor.accessibilitySupport": "off",
+    },
+    "files.watcherExclude": {
+        "**/.git/**": true,
+        "**/output/**": true,
+        "**/slurm/**": true,
+        "**/wandb/**": true,
+        "**/.history/**": true,
+        "../**": true,
+        "**/node_modules": true,
+        "**/.DS_Store": true,
+        "**/.ipynb_checkpoints": true,
+        "**/.pytest_cache": true,
+
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/*.egg-info": true
+    },
+}

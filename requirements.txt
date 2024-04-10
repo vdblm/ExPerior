@@ -1,0 +1,16 @@
+chex==0.1.82
+flax==0.7.2
+gymnax==0.0.6
+numpy==1.25.2
+omegaconf==2.3.0
+orbax==0.1.9
+pydantic==1.10.7
+PyYAML==6.0.1
+Random_Word==1.0.11
+tqdm==4.64.0
+matplotlib==3.7.0
+matplotlib-inline==0.1.6
+brax==0.10.0
+distrax==0.1.5
+rlax==0.1.6
+pandas==2.2.0

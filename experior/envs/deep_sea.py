@@ -100,7 +100,7 @@ class DeepSea(Environment):
             info,
         )
 
-    def Q_function(self, state: EnvState, params: EnvParams) -> chex.Array:
+    def q_values(self, state: EnvState, params: EnvParams) -> chex.Array:
         """Get Q function."""
         current_reward = step_reward(state, self.size, params)
         _, _, right_bad_episode = step_transition(
@@ -126,8 +126,7 @@ class DeepSea(Environment):
         self, key: chex.PRNGKey, state: EnvState, params: EnvParams
     ) -> int:
         """Get optimal policy. Choose the action with the highest Q value."""
-        state = state.env_state  # TODO fix this
-        q_values = self.Q_function(state, params)
+        q_values = self.q_values(state, params)
         action_ind = jnp.argmax(q_values)
         right_action_ind = params.action_mapping[state.row, state.column]
         return jax.lax.stop_gradient(
@@ -192,7 +191,7 @@ class DeepSea(Environment):
         )
 
 
-def step_reward(state: EnvState, size: int, params: EnvParams) -> Tuple[float, float]:
+def step_reward(state: EnvState, size: int, params: EnvParams) -> float:
     """Get the reward for the selected action."""
     # Reward calculation.
     is_in_optimal_path = in_optimal_path(

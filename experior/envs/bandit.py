@@ -95,13 +95,9 @@ class BayesStochasticBandit(Environment):
     def optimal_policy(
         self, key: PRNGKey, state: EnvState, params: EnvParams
     ) -> Action:
-        if hasattr(state, "env_state"):
-            state = state.env_state
         return self.best_action_value_fn(params.reward_param, state.current_context)[0]
 
     def q_function(self, state: EnvState, param: EnvParams, action: Action) -> float:
-        if hasattr(state, "env_state"):
-            state = state.env_state
         return self.reward_mean_fn(param.reward_param, state.current_context, action)
 
     @property

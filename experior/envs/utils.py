@@ -59,3 +59,6 @@ class Environment(environment.Environment):
         self, state: EnvState, param: EnvParams, action: Union[int, float, chex.Array]
     ) -> float:
         raise NotImplementedError
+
+    def q_values(self, state: EnvState, param: EnvParams) -> chex.Array:
+        raise NotImplementedError

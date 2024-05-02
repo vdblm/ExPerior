@@ -164,3 +164,4 @@ slurm/run-*
 notebook_output*
 slurm/
 wandb/
+*legacy_bdqn_warm.npz*

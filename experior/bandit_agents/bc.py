@@ -21,7 +21,6 @@ def make_multi_armed_bc(env: Environment, num_envs: int, total_steps: int):
         def _env_step(runner_state, i):
             obs, env_state, rng = runner_state
 
-            # select (UCB)
             rng, rng_ = jax.random.split(rng)
             action = jax.random.choice(rng_, n_actions, p=expert_fraction)
             action = jnp.repeat(action, num_envs)

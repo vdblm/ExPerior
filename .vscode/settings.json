@@ -33,4 +33,11 @@
         "**/.pytest_cache": true,
         "**/*.egg-info": true
     },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "black-formatter.path": ["black"],
+    "black-formatter.importStrategy": "fromEnvironment",
+    "notebook.formatOnCellExecution": true,
+    "editor.formatOnSave": true,
+    "notebook.formatOnSave.enabled": true,
+    "editor.formatOnPaste": true,
 }

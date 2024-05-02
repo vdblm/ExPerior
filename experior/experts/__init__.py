@@ -41,13 +41,13 @@ def generate_optimal_trajectories(
         def _env_step(runner_state, _):
             state, rng, obs = runner_state
             rng, rng_ = jax.random.split(rng)
-            action = env.optimal_policy(rng_, state, params)
+            action = env.optimal_policy(rng_, state.env_state, params)
             rng, rng_ = jax.random.split(rng)
             next_obs, next_state, reward, done, info = env.step(
                 rng_, state, action, params
             )
             runner_state = (next_state, rng, next_obs)
-            return runner_state, Trajectory(action, reward, obs)
+            return runner_state, Trajectory(action, reward, obs, done=done)
 
         runner_state = (state, key, obs)
         runner_state, trajectory = jax.lax.scan(_env_step, runner_state, None, horizon)
@@ -84,7 +84,7 @@ def generate_noisy_optimal_trajectories(
             rng, rng1, rng2 = jax.random.split(rng, 3)
             action = jnp.where(
                 jax.random.uniform(rng1) < gamma,
-                env.optimal_policy(rng2, state, params),
+                env.optimal_policy(rng2, state.env_state, params),
                 env.action_space(params).sample(rng2),
             )
             rng, rng_ = jax.random.split(rng)
@@ -92,7 +92,7 @@ def generate_noisy_optimal_trajectories(
                 rng_, state, action, params
             )
             runner_state = (next_state, rng, next_obs)
-            return runner_state, Trajectory(action, reward, obs)
+            return runner_state, Trajectory(action, reward, obs, done=done)
 
         runner_state = (state, key, obs)
         runner_state, trajectory = jax.lax.scan(_env_step, runner_state, None, horizon)
@@ -130,9 +130,9 @@ def generate_discrete_noisy_rational_trajectories(
 
         def _env_step(runner_state, _):
             state, rng, obs = runner_state
-            q_functions = jax.vmap(lambda a: env.q_function(state, params, a))(
-                action_space
-            )
+            q_functions = jax.vmap(
+                lambda a: env.q_function(state.env_state, params, a)
+            )(action_space)
             probs = jax.nn.softmax(beta * q_functions)
             rng, rng_ = jax.random.split(rng)
             action = jax.random.choice(rng_, action_space, p=probs)
@@ -141,7 +141,7 @@ def generate_discrete_noisy_rational_trajectories(
                 rng_, state, action, params
             )
             runner_state = (next_state, rng, next_obs)
-            return runner_state, Trajectory(action, reward, obs)
+            return runner_state, Trajectory(action, reward, obs, done=done)
 
         runner_state = (state, key, obs)
         runner_state, trajectory = jax.lax.scan(_env_step, runner_state, None, horizon)

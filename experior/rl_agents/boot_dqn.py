@@ -132,15 +132,14 @@ def make_boot_dqn_train(
             epsilon = epsilon_fn(i)
             # action from q network
             rng, rng1, rng2 = jax.random.split(rng, 3)
+            active_params = jax.tree_map(lambda x: x[active_head], q_states.params)
             action = jnp.where(
                 jax.random.uniform(rng1) < epsilon,
                 env.action_space().sample(rng2),
                 jnp.argmax(
-                    jax.vmap(q_states.apply_fn, (0, None))(q_states.params, obs),
+                    q_states.apply_fn(active_params, obs),
                     axis=-1,
-                )[
-                    active_head
-                ],  # TODO make it more efficient
+                ),
             )
             rng, rng_ = jax.random.split(rng)
             next_obs, env_state, reward, done, info = env.step(
@@ -208,6 +207,7 @@ def make_boot_dqn_train(
                 "loss": loss,
                 "reward": reward,
                 "done": done,
+                "action": action,
                 "info": info,
             }
 

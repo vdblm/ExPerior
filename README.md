@@ -2,7 +2,7 @@
 
 <p align="center" markdown="1">
     <img src="https://img.shields.io/badge/Python-3.10-green.svg" alt="Python Version" height="18">
-    <a href="https://arxiv.org/abs/2404.07266"><img src="https://img.shields.io/badge/arXiv-2404.07266-b31b1b.svg" alt="arXiv" height="18"></a>
+<!--     <a href="https://arxiv.org/abs/2404.07266"><img src="https://img.shields.io/badge/arXiv-2404.07266-b31b1b.svg" alt="arXiv" height="18"></a> -->
 </p>
 
 <p align="center">
@@ -34,17 +34,4 @@ Finally, other requirements are installed with `pip install -r requirements.txt`
 
 ## Experiments
 For bandit experiments, follow the notebook [`notebooks/bandit.ipynb`](./notebooks/bandit.ipynb). For deep sea experiments, run [`notebooks/deep_sea.ipynb`](./notebooks/deep_sea.ipynb).
-
-## Citation
-
-Please use the following citation if you use this code or methods in your own work.
-
-```bibtex
-@misc{balazadeh2024sequential,
-      title={Sequential Decision Making with Expert Demonstrations under Unobserved Heterogeneity}, 
-      author={Vahid Balazadeh and Keertana Chidambaram and Viet Nguyen and Rahul G. Krishnan and Vasilis Syrgkanis},
-      year={2024},
-      eprint={2404.07266},
-      primaryClass={cs.LG}
-}
 ```
